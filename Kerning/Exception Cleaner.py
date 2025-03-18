@@ -288,7 +288,7 @@ class DeleteExceptionsTooCloseToGroupKerning(mekkaObject):
 					leftGlyphName = self.glyphNameForKernSide(thisFont, leftSide, isTheLeftSide=True)
 					rightGlyphName = self.glyphNameForKernSide(thisFont, rightSide, isTheLeftSide=False)
 					if leftGlyphName is not None and rightGlyphName is not None:
-						tabString += "/%s/%s " % (leftGlyphName, rightGlyphName)
+						tabString += "/%s/%s  " % (leftGlyphName, rightGlyphName)
 
 				# REPORT
 				if tabString and openTab:
