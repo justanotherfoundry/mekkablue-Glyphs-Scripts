@@ -187,6 +187,8 @@ class DeleteExceptionsTooCloseToGroupKerning(mekkaObject):
 										groupKerning = thisFont.kerningForPair(thisMasterID, leftGlyphGroupMMK, rightGlyphGroupMMK)
 										if groupKerning is None or groupKerning > 100000:  # NSNotFound
 											groupKerning = 0
+										if exceptionKerning == groupKerning:
+											continue
 										if abs(exceptionKerning - groupKerning) < threshold:
 											print(
 												"- Insignificant exception @%s-%s: %i vs. @%s-@%s: %i" % (
@@ -242,6 +244,8 @@ class DeleteExceptionsTooCloseToGroupKerning(mekkaObject):
 									if groupKerning is None or groupKerning > 100000:  # NSNotFound
 										groupKerning = 0
 
+									if exceptionKerning == groupKerning:
+										continue
 									if abs(exceptionKerning - groupKerning) < threshold:
 										if rightGlyph:
 											rightSideName = rightGlyph.name
