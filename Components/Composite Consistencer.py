@@ -25,6 +25,7 @@ class CompositeConsistencer(mekkaObject):
 		"ignore": defaultSuffixes,
 		"ignoreDuplicateSuffixes": True,
 		"suffixOrderMatters": False,
+		"ignoreNonexporting": True,
 	}
 
 	def __init__(self):
@@ -54,6 +55,9 @@ class CompositeConsistencer(mekkaObject):
 		linePos += lineHeight
 
 		self.w.suffixOrderMatters = vanilla.CheckBox((inset + 2, linePos - 1, -inset, 20), "Order of suffixes matters (.case.ss01 and .ss01.case)", value=False, callback=self.SavePreferences, sizeStyle='small')
+		linePos += lineHeight
+
+		self.w.ignoreNonexporting = vanilla.CheckBox((inset + 2, linePos - 1, -inset, 20), "Ignore non-exporting glyphs", value=True, callback=self.SavePreferences, sizeStyle='small')
 		linePos += lineHeight
 
 		# Run Button:
@@ -87,7 +91,8 @@ class CompositeConsistencer(mekkaObject):
 				print()
 
 				thisMaster = thisFont.selectedFontMaster
-				allNames = [g.name for g in thisFont.glyphs if g.export]
+				ignoreNonexporting = self.pref("ignoreNonexporting")
+				allNames = [g.name for g in thisFont.glyphs if g.export or not ignoreNonexporting]
 
 				ignore = self.pref("ignore")
 				ignoredSuffixes = [s.strip().strip(".") for s in ignore.split(",")]
